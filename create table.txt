@@ -80,9 +80,12 @@ mysql> create table sellproduct
     -> spno int primary key auto_increment,
     -> spname varchar(20) not null,
     -> spcategory varchar(20) not null,
-    -> spprice varchar(20) not null,
+    -> spprice int not null,
     -> spquantity varchar(20) not null,
-    -> sellerid int,
+    -> sellerid int not null,
+    -> availability boolean not null,
+    -> startingdate date not null,
+    -> enddate date not null,
     -> foreign key(sellerid) references seller(sid)
     -> );
 Query OK, 0 rows affected (0.19 sec)
@@ -90,17 +93,20 @@ Query OK, 0 rows affected (0.19 sec)
 mysql> alter table sellproduct auto_increment=1000;
 
 mysql> desc sellproduct;
-+------------+-------------+------+-----+---------+----------------+
-| Field      | Type        | Null | Key | Default | Extra          |
-+------------+-------------+------+-----+---------+----------------+
-| spno       | int         | NO   | PRI | NULL    | auto_increment |
-| spname     | varchar(20) | NO   |     | NULL    |                |
-| spcategory | varchar(20) | NO   |     | NULL    |                |
-| spprice    | varchar(20) | NO   |     | NULL    |                |
-| spquantity | varchar(20) | NO   |     | NULL    |                |
-| sellerid   | int         | YES  | MUL | NULL    |                |
-+------------+-------------+------+-----+---------+----------------+
-6 rows in set (0.00 sec)
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| spno         | int         | NO   | PRI | NULL    | auto_increment |
+| spname       | varchar(20) | NO   |     | NULL    |                |
+| spcategory   | varchar(20) | NO   |     | NULL    |                |
+| spprice      | int         | NO   |     | NULL    |                |
+| spquantity   | varchar(20) | NO   |     | NULL    |                |
+| sellerid     | int         | NO   | MUL | NULL    |                |
+| availability | tinyint(1)  | NO   |     | NULL    |                |
+| startingdate | date        | NO   |     | NULL    |                |
+| enddate      | date        | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
 
 Buyer
 
@@ -135,36 +141,26 @@ mysql> create table buyerproduct
     -> bpno int primary key auto_increment,
     -> bid int not null,
     -> spno int not null,
+    -> minprice int not null,
+    -> buydate date not null,
     -> foreign key(spno) references sellproduct(spno),
     -> foreign key(bid) references buyer(bid)
     -> );
 Query OK, 0 rows affected (0.18 sec)
 
 mysql> alter table buyerproduct auto_increment=300;
-
-mysql> create table buyerproduct
-    -> (
-    -> bpno int primary key auto_increment,
-    -> bid int not null,
-    -> spno int not null,
-    -> foreign key(spno) references sellproduct(spno),
-    -> foreign key(bid) references buyer(bid)
-    -> );
-Query OK, 0 rows affected (0.18 sec)
-
-mysql> alter table buyerproduct auto_increment=300;
-Query OK, 0 rows affected (0.07 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
-mysql> desc buyerproduct;
-+-------+------+------+-----+---------+----------------+
-| Field | Type | Null | Key | Default | Extra          |
-+-------+------+------+-----+---------+----------------+
-| bpno  | int  | NO   | PRI | NULL    | auto_increment |
-| bid   | int  | NO   | MUL | NULL    |                |
-| spno  | int  | NO   | MUL | NULL    |                |
-+-------+------+------+-----+---------+----------------+
-3 rows in set (0.00 sec)
++----------+------+------+-----+---------+----------------+
+| Field    | Type | Null | Key | Default | Extra          |
++----------+------+------+-----+---------+----------------+
+| bpno     | int  | NO   | PRI | NULL    | auto_increment |
+| bid      | int  | NO   | MUL | NULL    |                |
+| spno     | int  | NO   | MUL | NULL    |                |
+| minprice | int  | NO   |     | NULL    |                |
+| buydate  | date | NO   |     | NULL    |                |
++----------+------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
 
 
 
