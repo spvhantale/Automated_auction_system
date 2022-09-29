@@ -1,0 +1,171 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| auction            |
+| c4evaluation       |
+| information_schema |
+| mysql              |
+| org                |
+| performance_schema |
+| sb101day1          |
+| sb101day2          |
+| sb101day3          |
+| sb101day4          |
+| sb101day5          |
+| sys                |
++--------------------+
+12 rows in set (0.19 sec)
+
+mysql> use auction;
+Database changed
+
+
+Table admin
+
+mysql> create table admin
+    -> (
+    -> aid int primary key auto_increment,
+    -> aname varchar(20) not null,
+    -> amail varchar(20) unique not null,
+    -> amobile varchar(20) not null,
+    -> apassword varchar(20) not null
+    -> );
+Query OK, 0 rows affected (1.00 sec)
+
+mysql> desc admin;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| aid       | int         | NO   | PRI | NULL    | auto_increment |
+| aname     | varchar(20) | NO   |     | NULL    |                |
+| amail     | varchar(20) | NO   | UNI | NULL    |                |
+| amobile   | varchar(20) | NO   |     | NULL    |                |
+| apassword | varchar(20) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+
+Seller
+
+mysql> create table seller
+    -> (
+    -> sid int primary key auto_increment,
+    -> sname varchar(20) not null,
+    -> smail varchar(20) unique not null,
+    -> smobile varchar(20) not null,
+    -> spassowrd varchar(20) not null
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> alter table seller auto_increment=100;
+
+mysql> desc seller;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| sid       | int         | NO   | PRI | NULL    | auto_increment |
+| sname     | varchar(20) | NO   |     | NULL    |                |
+| smail     | varchar(20) | NO   | UNI | NULL    |                |
+| smobile   | varchar(20) | NO   |     | NULL    |                |
+| spassowrd | varchar(20) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+
+Seller Product
+
+mysql> create table sellproduct
+    -> (
+    -> spno int primary key auto_increment,
+    -> spname varchar(20) not null,
+    -> spcategory varchar(20) not null,
+    -> spprice varchar(20) not null,
+    -> spquantity varchar(20) not null,
+    -> sellerid int,
+    -> foreign key(sellerid) references seller(sid)
+    -> );
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> alter table sellproduct auto_increment=1000;
+
+mysql> desc sellproduct;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| spno       | int         | NO   | PRI | NULL    | auto_increment |
+| spname     | varchar(20) | NO   |     | NULL    |                |
+| spcategory | varchar(20) | NO   |     | NULL    |                |
+| spprice    | varchar(20) | NO   |     | NULL    |                |
+| spquantity | varchar(20) | NO   |     | NULL    |                |
+| sellerid   | int         | YES  | MUL | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+Buyer
+
+mysql> create table buyer
+    ->      (
+    ->     bid int primary key auto_increment,
+    ->     bname varchar(20) not null,
+    ->     bmail varchar(20) unique not null,
+    ->     bmobile varchar(20) not null,
+    ->     bpassowrd varchar(20) not null
+    ->     );
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> alter table buyer auto_increment=2000;
+
+mysql> desc buyer;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| bid       | int         | NO   | PRI | NULL    | auto_increment |
+| bname     | varchar(20) | NO   |     | NULL    |                |
+| bmail     | varchar(20) | NO   | UNI | NULL    |                |
+| bmobile   | varchar(20) | NO   |     | NULL    |                |
+| bpassowrd | varchar(20) | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+Buyer product
+
+mysql> create table buyerproduct
+    -> (
+    -> bpno int primary key auto_increment,
+    -> bid int not null,
+    -> spno int not null,
+    -> foreign key(spno) references sellproduct(spno),
+    -> foreign key(bid) references buyer(bid)
+    -> );
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> alter table buyerproduct auto_increment=300;
+
+mysql> create table buyerproduct
+    -> (
+    -> bpno int primary key auto_increment,
+    -> bid int not null,
+    -> spno int not null,
+    -> foreign key(spno) references sellproduct(spno),
+    -> foreign key(bid) references buyer(bid)
+    -> );
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> alter table buyerproduct auto_increment=300;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc buyerproduct;
++-------+------+------+-----+---------+----------------+
+| Field | Type | Null | Key | Default | Extra          |
++-------+------+------+-----+---------+----------------+
+| bpno  | int  | NO   | PRI | NULL    | auto_increment |
+| bid   | int  | NO   | MUL | NULL    |                |
+| spno  | int  | NO   | MUL | NULL    |                |
++-------+------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+
+
+
