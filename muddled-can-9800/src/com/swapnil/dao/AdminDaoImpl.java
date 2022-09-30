@@ -2,9 +2,11 @@ package com.swapnil.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.swapnil.bean.Admin;
+import com.swapnil.exception.AdminException;
 import com.swapnil.utality.DUtil;
 
 public class AdminDaoImpl implements AdminDao{
@@ -38,6 +40,41 @@ public class AdminDaoImpl implements AdminDao{
 		
 		
 		return massage;
+	}
+
+	@Override
+	public Admin loginAdmin(String username, String password) throws AdminException {
+		Admin admin=null;
+		
+	try(Connection conn=DUtil.provideConnection()) {
+		PreparedStatement ps=conn.prepareStatement("select * from admin where amail=? AND apassword=?");
+		
+		ps.setString(1, username);
+		ps.setString(2, password);
+		
+		ResultSet rs=ps.executeQuery();
+	
+		if(rs.next()) {
+			
+			int id=rs.getInt("aid");
+			String aname=rs.getString("aname");
+			String amail=rs.getString("amail");
+			String amobile=rs.getString("amobile");
+			String apassword=rs.getString("apassword");
+			
+			admin=new Admin(id, aname, amail, amobile, apassword);
+			
+			
+			
+		}else {
+			throw new AdminException("Invalid username or password...");
+		}
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		throw new AdminException(e.getMessage());
+	}
+		return admin;
 	}
 
 }
