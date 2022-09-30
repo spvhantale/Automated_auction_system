@@ -9,7 +9,7 @@ import com.swapnil.exception.AdminException;
 
 public class LoginAdmincase {
 
-	public static void main(String[] args) {
+	public static void login() {
 		
 		Scanner sc=new Scanner(System.in);
 		

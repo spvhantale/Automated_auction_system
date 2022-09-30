@@ -165,4 +165,36 @@ public class SellerDaoImpl implements SellerDao{
 		return message;
 	}
 
+	@Override
+	public String deleteItem(int spno,int sellerid) throws SellerProductException {
+		// TODO Auto-generated method stub
+		
+String message="Not Deleted";
+		
+		Connection conn=DUtil.provideConnection();
+		
+	try {
+		PreparedStatement	ps=conn.prepareStatement("delete from sellproduct where  spno=? AND sellerid=?");
+		
+			
+		ps.setInt(1, spno);
+		ps.setInt(2,sellerid);
+		
+		int x=ps.executeUpdate();
+		
+		if(x>0) {
+			message="Deleted the item";
+		}else {
+			throw new SellerProductException("Invalid Product Number");
+		}
+	
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		message=e.getMessage();
+	}
+		return message;
+		
+		
+	}
+
 }

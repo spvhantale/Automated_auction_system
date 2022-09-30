@@ -18,6 +18,7 @@ public interface SellerDao {
 	public String updateQuantity(int quantity,int spno) throws SellerProductException;
 	
 	
+	public String deleteItem(int spno,int sellerid) throws SellerProductException;
 	
 	
 	

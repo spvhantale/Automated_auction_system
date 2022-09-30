@@ -4,9 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.swapnil.bean.Admin;
+import com.swapnil.bean.Buyer;
+import com.swapnil.bean.Seller;
 import com.swapnil.exception.AdminException;
+import com.swapnil.exception.BuyerException;
+import com.swapnil.exception.SellerException;
 import com.swapnil.utality.DUtil;
 
 public class AdminDaoImpl implements AdminDao{
@@ -75,6 +81,82 @@ public class AdminDaoImpl implements AdminDao{
 		throw new AdminException(e.getMessage());
 	}
 		return admin;
+	}
+
+	@Override
+	public List<Buyer> viewBuyerList() throws BuyerException{
+		List<Buyer> list=new ArrayList<>();
+		
+		Connection conn=DUtil.provideConnection();
+		
+		try {
+		PreparedStatement	ps=conn.prepareStatement("select * from buyer");
+			
+			ResultSet rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				int bid=rs.getInt("bid");
+				String bname=rs.getString("bname");
+				String bmail=rs.getString("bmail");
+				String bmobile=rs.getString("bmobile");
+				String bpassword=rs.getString("bpassword");
+				
+				Buyer b=new Buyer();
+				
+				b.setBid(bid);
+				b.setBmail(bmail);
+				b.setBmobile(bmobile);
+				b.setBname(bname);
+				b.setBpassword("*****");
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new BuyerException(e.getMessage());
+		}
+		if(list.size()==0) {
+			throw new BuyerException("Not found ");
+		}
+		return list;
+	}
+
+	@Override
+	public List<Seller> viewSellerList() throws SellerException {
+	List<Seller> list=new ArrayList<>();
+		
+		Connection conn=DUtil.provideConnection();
+		
+		try {
+		PreparedStatement	ps=conn.prepareStatement("select * from seller");
+			
+			ResultSet rs=ps.executeQuery();
+			
+			while(rs.next()) {
+				int sid=rs.getInt("sid");
+				String sname=rs.getString("sname");
+				String smail=rs.getString("smail");
+				String smobile=rs.getString("smobile");
+				String spassword=rs.getString("spassword");
+				
+				Seller s=new Seller();
+				
+				s.setSid(sid);
+				s.setSmail(smail);
+				s.setSmobile(smobile);
+				s.setSname(sname);
+				s.setSpassword("*****");
+				list.add(s);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new SellerException(e.getMessage());
+		}
+		if(list.size()==0) {
+			throw new SellerException("Not found ");
+		}
+		return list;
 	}
 
 }
