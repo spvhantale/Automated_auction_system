@@ -6,6 +6,7 @@ import com.swapnil.bean.Admin;
 import com.swapnil.bean.Buyer;
 import com.swapnil.bean.Seller;
 import com.swapnil.usecases.InsertSellproduct;
+import com.swapnil.usecases.Insertbuyerproduct;
 import com.swapnil.usecases.LoginAdmincase;
 import com.swapnil.usecases.LoginBuyercase;
 import com.swapnil.usecases.LoginSellercase;
@@ -13,6 +14,8 @@ import com.swapnil.usecases.RegisterAdmincase;
 import com.swapnil.usecases.RegisterBuyercase;
 import com.swapnil.usecases.RegisterSellercase;
 import com.swapnil.usecases.RemoveItemfromList;
+import com.swapnil.usecases.SearchAndViewProductAndSellerbyCategory;
+import com.swapnil.usecases.SearchAndViewSellProduct;
 import com.swapnil.usecases.UpdateSellerProductbyPrice;
 import com.swapnil.usecases.UpdateSellerProductbyQuantity;
 import com.swapnil.usecases.ViewRegisterBuyerList;
@@ -118,7 +121,7 @@ public void selectionChoiceBuyer() {
 			LoginBuyercase.loginBuyer();
 			buyer=LoginBuyercase.buyer;
 			if(buyer!=null) {
-				System.out.println(buyer);
+				selectionChoiceAfterBuyerLogin();
 			}else {
 				selectionChoiceBuyer();
 			}
@@ -188,5 +191,35 @@ public void selectionChoiceBuyer() {
 		}
 		
 	}
-
+	public void selectionChoiceAfterBuyerLogin() {
+		System.out.println("Select the option"+"\n"+"1.Search by category"+"\n"+"2.Search by category with seller "+"\n"+"3.Buy the product"+"\n"+"4.exit");
+	
+		int b=sc.nextInt();
+		
+		switch(b) {
+		
+		case 1:
+			SearchAndViewSellProduct.searchAndViewProduct();
+			selectionChoiceAfterBuyerLogin();
+			break;
+		case 2:
+			SearchAndViewProductAndSellerbyCategory.searchAndViewANDSell();;
+			selectionChoiceAfterBuyerLogin();
+			break;
+			
+		case 3:
+			Insertbuyerproduct.bid=buyer.getBid();
+			Insertbuyerproduct.insertBuyerProduct();
+			selectionChoiceAfterBuyerLogin();
+			break;
+			
+		case 4:
+			selectionchoice();
+			break;
+		
+		
+		}
+	
+	
+	}
 }

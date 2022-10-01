@@ -11,7 +11,7 @@ import com.swapnil.exception.SellerProductException;
 
 public class SearchAndViewProductAndSellerbyCategory {
 
-	public static void main(String[] args) {
+	public static void searchAndViewANDSell() {
 		// TODO Auto-generated method stub
 
 		Scanner sc=new Scanner(System.in);

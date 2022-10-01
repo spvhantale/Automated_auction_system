@@ -12,10 +12,10 @@ import com.swapnil.exception.BuyerException;
 import com.swapnil.exception.SellerException;
 
 public class Insertbuyerproduct {
-
-	public static void main(String[] args) {
+	public static int bid;
+	public static void insertBuyerProduct() {
 		// TODO Auto-generated method stub
-		int bid=2000;
+		
 		
 		String bpcategory="paint";
 		Scanner sc=new Scanner(System.in);
