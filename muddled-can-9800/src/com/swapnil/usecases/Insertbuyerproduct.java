@@ -17,7 +17,7 @@ public class Insertbuyerproduct {
 		// TODO Auto-generated method stub
 		
 		
-		String bpcategory="paint";
+		
 		Scanner sc=new Scanner(System.in);
 		
 		System.out.println("Enter the min price");
@@ -25,6 +25,9 @@ public class Insertbuyerproduct {
 		
 		System.out.println("Enter the sellproduct number");
 		int spno=sc.nextInt();
+		
+		System.out.println("Enter the Category");
+		String bpcategory=sc.next();
 		
 		System.out.println("Enter the buydate in yyyy-MM-dd");
 		String da=sc.next();

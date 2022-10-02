@@ -209,6 +209,7 @@ public void selectionChoiceBuyer() {
 			
 		case 3:
 			Insertbuyerproduct.bid=buyer.getBid();
+//			Insertbuyerproduct.bpcategory=
 			Insertbuyerproduct.insertBuyerProduct();
 			selectionChoiceAfterBuyerLogin();
 			break;
