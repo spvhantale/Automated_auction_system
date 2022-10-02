@@ -81,7 +81,7 @@ mysql> create table sellproduct
     -> spname varchar(20) not null,
     -> spcategory varchar(20) not null,
     -> spprice int not null,
-    -> spquantity varchar(20) not null,
+    -> spquantity int not null,
     -> sellerid int not null,
     -> availability boolean not null,
     -> startingdate date not null,
@@ -100,7 +100,7 @@ mysql> desc sellproduct;
 | spname       | varchar(20) | NO   |     | NULL    |                |
 | spcategory   | varchar(20) | NO   |     | NULL    |                |
 | spprice      | int         | NO   |     | NULL    |                |
-| spquantity   | varchar(20) | NO   |     | NULL    |                |
+| spquantity   | int         | NO   |     | NULL    |                |
 | sellerid     | int         | NO   | MUL | NULL    |                |
 | availability | tinyint(1)  | NO   |     | NULL    |                |
 | startingdate | date        | NO   |     | NULL    |                |
