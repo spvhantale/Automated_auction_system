@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+B:\JAVA Project\Auction\muddled-can-9800\muddled-can-9800\.metadata\.plugins\org.eclipse.jdt.core
