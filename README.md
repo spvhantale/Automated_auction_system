@@ -31,6 +31,7 @@ The Role of a Vendor is:
 - Java
 - MySQL
 - JDBC Dao
+- Hibernate
 
 
 
